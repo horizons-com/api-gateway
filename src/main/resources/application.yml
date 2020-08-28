@@ -1,0 +1,31 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: api-gateway
+eureka:
+  instance:
+    hostname: localhost
+    port: 8761
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.instance.port}/eureka
+zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
+  host:
+    connect-timeout-millis: 5000000
+    socket-timeout-millis: 5000000
+  ignored-services: '*'
+  routes:
+    messages-microservice:
+      path: /api/students/**
+      serviceId: students-microservice
+      stripPrefix: true
+    students-microservice:
+      path: /api/messages/**
+      serviceId: messages-microservice
+      stripPrefix: true
+    auth-microservice:
+      path: /auth/**
+      serviceId: auth-microservice
+      stripPrefix: true
