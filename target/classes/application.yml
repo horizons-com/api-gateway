@@ -28,4 +28,7 @@ zuul:
     auth-microservice:
       path: /auth/**
       serviceId: auth-microservice
-      stripPrefix: true
+      stripPrefix: false
+      sensitiveHeaders:
+        - Cookie
+        - SetCookie

@@ -1,0 +1,4 @@
+/home/rabadli/workspace/horizons.com/api-gateway/src/main/java/com/horizons/apigateway/configuration/JwtTokenAuthenticationFilter.java
+/home/rabadli/workspace/horizons.com/api-gateway/src/main/java/com/horizons/apigateway/ApigatewayApplication.java
+/home/rabadli/workspace/horizons.com/api-gateway/src/main/java/com/horizons/apigateway/configuration/JwtConfig.java
+/home/rabadli/workspace/horizons.com/api-gateway/src/main/java/com/horizons/apigateway/configuration/SecurityTokenConfig.java
