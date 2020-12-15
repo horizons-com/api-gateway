@@ -20,6 +20,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable()
                 // make sure we use stateless session; session won't be used to store user's state.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -34,9 +35,9 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 // allow all who are accessing "auth" service
                 .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
                 // must be an admin if trying to access admin area (authentication is also required here)
-                // .antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
+                .antMatchers("/students" + "/admin/**").hasRole("ADMIN")
                 // Any other request must be authenticated
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
                 //.anyRequest().permitAll();
         ;
     }
