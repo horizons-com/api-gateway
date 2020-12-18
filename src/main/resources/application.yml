@@ -26,9 +26,9 @@ zuul:
       serviceId: messages-microservice
       stripPrefix: true
     auth-microservice:
-      path: /auth/**
+      path: /api/users/**
       serviceId: auth-microservice
-      stripPrefix: false
+      stripPrefix: true
       sensitiveHeaders:
         - Cookie
         - SetCookie

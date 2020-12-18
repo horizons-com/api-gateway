@@ -3,7 +3,7 @@ package com.horizons.apigateway.configuration;
 import org.springframework.beans.factory.annotation.Value;
 
 public class JwtConfig {
-    @Value("${security.jwt.uri:/auth/**}")
+    @Value("${security.jwt.uri:/**}")
     private String Uri;
 
     @Value("${security.jwt.header:Authorization}")
