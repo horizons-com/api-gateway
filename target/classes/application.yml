@@ -17,15 +17,15 @@ zuul:
     socket-timeout-millis: 5000000
   ignored-services: '*'
   routes:
-    messages-microservice:
-      path: /api/students/**
-      serviceId: students-microservice
-      stripPrefix: true
-    students-microservice:
+    messages_microservice:
       path: /api/messages/**
       serviceId: messages-microservice
       stripPrefix: true
-    auth-microservice:
+    students_microservice:
+      path: /api/students/**
+      serviceId: students-microservice
+      stripPrefix: true
+    auth_microservice:
       path: /api/users/**
       serviceId: auth-microservice
       stripPrefix: true

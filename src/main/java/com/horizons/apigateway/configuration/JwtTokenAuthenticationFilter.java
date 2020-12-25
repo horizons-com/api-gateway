@@ -7,6 +7,8 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.netflix.zuul.context.RequestContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,9 +16,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.REQUEST_URI_KEY;
+
 public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
 
-    private JwtConfig jwtConfig;
+    private final JwtConfig jwtConfig;
 
     public JwtTokenAuthenticationFilter(JwtConfig jwtConfig) {
         this.jwtConfig = jwtConfig;
@@ -66,6 +70,18 @@ public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
                 // 6. Authenticate the user
                 // Now, user is authenticated
                 SecurityContextHolder.getContext().setAuthentication(auth);
+
+                // 7. Alter the requestUri to get data specific the the logged in user
+                String role;
+                if (authorities.size() > 0) {
+                    role = authorities.get(0).split("_")[1];
+                    request.getRequestDispatcher(request.getRequestURI().concat("/user/"+username))
+                            .forward(request,response);
+                    // request.getRequestDispatcher(request.getRequestURI().replace("users",role).concat("/user/"+username))
+                    //        .forward(request,response);
+                    // String modifiedUrl = request.getRequestURI().replace("users", role + "/user/" + username);
+                    // RequestContext.getCurrentContext().put(REQUEST_URI_KEY, modifiedUrl);
+                }
             }
 
         } catch (Exception e) {
