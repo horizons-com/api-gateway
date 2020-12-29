@@ -25,6 +25,10 @@ zuul:
       path: /api/students/**
       serviceId: students-microservice
       stripPrefix: true
+    academicss_microservice:
+      path: /api/academics/**
+      serviceId: academics-microservice
+      stripPrefix: true
     auth_microservice:
       path: /api/users/**
       serviceId: auth-microservice
